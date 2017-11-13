@@ -1,0 +1,23 @@
+{
+    "name": "imageboard",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "node index.js"
+    },
+    "engines": {
+        "node": "10.15.1"
+    },
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "aws-sdk": "^2.476.0",
+        "body-parser": "^1.15.2",
+        "express": "^4.14.0",
+        "multer": "^1.2.0",
+        "spiced-pg": "^1.0.0",
+        "uid-safe": "^2.1.4"
+    }
+}
