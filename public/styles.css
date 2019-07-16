@@ -1,0 +1,31 @@
+body {
+    font-size: 3rem;
+    font-weight: bold;
+    height: 100vh;
+    width: 100vw;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 100px 1fr 1fr;
+}
+
+header {
+    border:  5px solid yellow;
+    grid-column: 1 / 4;
+    font-size: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+}
+
+img {
+    width: 200px;
+}
+
+p {
+    font-size: 14px;
+}

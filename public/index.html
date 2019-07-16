@@ -1,10 +1,62 @@
 <!doctype html>
 <html>
 <head>
-    <title></title>
+    <title>Image Board</title>
+    <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
+
+    <header>
+        <h2>Logo</h2>
+        <h1>Latest images</h1>
+    </header>
+
+<div class="main">
+
+    <form>
+        <input v-model = 'title' name="title" placeholder="title" type="text">
+        <input v-model = 'description' name="description" placeholder="description" type="text">
+        <input v-model = 'username' name="username" placeholder="username" type="text">
+        <input name="file" type="file" accept="image/*" @change='handleChange'>
+        <button @click='handleClick'>submit</button>
+     <!-- <button @click.prevent.default='handleClick'>submit</button>   -->
+    </form>
+
+<div class="cards">
+        <div class="image-cell" v-for='image in images'>
+            <img :src=image.url class='photo'>
+            <p class='title'> {{image.title}}</p>
+        </div>
+</div>
+
+
+
+    <!-- property of data (script js) this input should be married to  -->
+    <!-- now whatever we type in our input field will automatically be stored in data -->
+
+</div>
+</section>
     <script src="/js/vue.js"></script>
     <script src="/js/axios.min.js"></script>
+    <script src="/js/script.js"></script>
 </body>
 </html>
+
+
+
+
+
+
+<!-- <div class="main"> -->
+    <!-- elements inside of .main will have access to vue -->
+    <!-- <h1>Welcome, {{ name }}</h1> -->
+    <!-- <p>{{ 2 + 2 }}</p> -->
+    <!-- <p>{{ userInfo.favoriteFood }}</p> -->
+
+<!-- conditionals: -->
+    <!-- <ul v-if='cities.length > 0'> -->
+        <!-- city reperesents each object in the array, like i in a loop -->
+        <!-- <li v-for='city in cities'>{{city.name}}, {{city.country}}</li>
+    </ul> -->
+<!-- <p v-else>no cities!!!</p> -->
+<!-- </div> -->
