@@ -4,7 +4,7 @@ new Vue({
     el: '.main',
     data: {
         images: [],
-
+        showModal: false,
         title: '',
 
         description: '',
@@ -13,8 +13,11 @@ new Vue({
 
         file: null,
 
+        id: ''
+
     }, //closes data
     mounted: function() {
+
 
         console.log('this', this)  //properties of data are added to "this"
         var self = this;
@@ -62,7 +65,26 @@ new Vue({
             //now we need to add is as a property of data:
             this.file = e.target.files[0];
 
-        } //closes handleChange
+        },  //closes handleChange
+
+        clicked: function(e) {
+
+            this.showModal = true;
+            console.log("IMAGES URL", this.images[0].url);
+
+            this.images.forEach(obj => {
+                if (e.path[0].currentSrc == obj.url) {
+                // console.log(obj.id);
+                 this.id = obj.id;
+                // console.log("THIS.ID", this.id);
+                // axios.get('/comment').then(function(resp) {
+                //     console.log("RESP", resp);
+                // }).catch(function(err) {
+                //         console.log('err in GET /comment', err);
+                // });
+                }
+            })
+        }
 //---------------
     } //closes methods
 

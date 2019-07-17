@@ -63,6 +63,18 @@ var uploader = multer({
 
 });
 
+app.get('/comment/:id', function(req, res) {
+    // console.log(req.params);
+    db.getImageById(req.params.id).then(results => {
+        console.log("RESULTS:", results.rows);
+        res.json(results.rows);
+    }).catch(err => {
+        console.log("error", err);
+    });
+});
+
+
+
 
 //------------------------------
 app.listen(8080, () => console.log("Listening!"));

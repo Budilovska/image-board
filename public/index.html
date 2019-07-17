@@ -22,23 +22,43 @@
      <!-- <button @click.prevent.default='handleClick'>submit</button>   -->
     </form>
 
+
+
+
 <div class="cards">
-        <div class="image-cell" v-for='image in images'>
+        <div class="image-cell" v-for='image in images' @click="clicked">
             <img :src=image.url class='photo'>
             <p class='title'> {{image.title}}</p>
         </div>
 </div>
 
+<!-------------------------------------------------->
 
+<display-img  v-if="showModal" :id="id"></display-img>
 
-    <!-- property of data (script js) this input should be married to  -->
-    <!-- now whatever we type in our input field will automatically be stored in data -->
+<!-------------------------------------------------->
 
 </div>
+
+
+<!-------------------------------------------------->
+<script type="text/x-template" id="display-template">
+<div class="modal-box">
+    <h2>{{title}}</h2>
+    <img :src="url" class='photo'>
+    <p>{{description}}</p>
+    <h5>uploaded by {{username}} on {{date}}</h5>
+</div>
+</script>
+<!-------------------------------------------------->
+
+
 </section>
     <script src="/js/vue.js"></script>
     <script src="/js/axios.min.js"></script>
+    <script src="/js/display-img.js"></script>
     <script src="/js/script.js"></script>
+
 </body>
 </html>
 
