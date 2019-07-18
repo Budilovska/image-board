@@ -73,7 +73,7 @@ app.get('/comment/:id', function(req, res) {
         const imagesInfo = results.rows;
         // res.json(results.rows);
          db.getAllComments(req.params.id).then(comments => {
-            console.log("COMMENTS", comments, imagesInfo);
+            console.log("COMMENTS", comments);
             res.json([imagesInfo, comments.rows]);
                 }).catch(err => {
                     console.log("error", err);
@@ -82,18 +82,14 @@ app.get('/comment/:id', function(req, res) {
 });
 
 app.post('/comment/:id', function(req, res) {
-        db.addComment(req.params.id, req.body.author, req.body.comment).then(() => {
+        db.addComment(req.params.id, req.body.author, req.body.comment).then(comments => {
             console.log("New comment is added!!!");
-        }).catch(err => {
-            console.log("error", err);
-    });
-    // db.getAllComments(req.params.id).then(comments => {
-    //    console.log("COMMENTS", comments);
-    //    res.json(comments.rows);
-    //        }).catch(err => {
-    //            console.log("error", err);
-    //        });
-});
+            console.log("LAST:", comments);
+                    res.json(comments.rows);
+                        }).catch(err => {
+                            console.log("error", err);
+                        });
+                    });
 
 
 //------------------------------
@@ -102,7 +98,25 @@ app.listen(8080, () => console.log("Listening!"));
 
 
 
-
+// app.post('/comment/:id', function(req, res) {
+//         db.addComment(req.params.id, req.body.author, req.body.comment).then(() => {
+//             console.log("New comment is added!!!");
+//                 db.getAllComments(req.params.id).then(comments => {
+//                     // console.log("COMMENTS", comments.rows);
+//                     res.json(comments.rows);
+//                         }).catch(err => {
+//                             console.log("error", err);
+//                         });
+//         // }).catch(err => {
+//         //     console.log("error", err);
+//     });
+// //     db.getAllComments(req.params.id).then(comments => {
+// //        console.log("COMMENTS", comments);
+// //        res.json(comments.rows);
+// //            }).catch(err => {
+// //                console.log("error", err);
+// //            });
+// });
 
 
 //

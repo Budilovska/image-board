@@ -21,7 +21,7 @@ exports.getImageById = function(id) {
 
 exports.addComment = function(image_id, author, comment)
 {
-    return db.query("INSERT INTO comments (image_id, author, comment) VALUES ($1, $2, $3)", [image_id, author, comment]);
+    return db.query("INSERT INTO comments (image_id, author, comment) VALUES ($1, $2, $3) RETURNING *", [image_id, author, comment]);
 };
 
 exports.getAllComments = function(id) {

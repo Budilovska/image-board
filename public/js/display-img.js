@@ -37,10 +37,11 @@
                 e.preventDefault();
                 // console.log("Submitted a comment");
                 // console.log(this.id);
+                var that = this;
 
                 axios.post('/comment/' + this.id, {comment: this.comment, author: this.author}).then(function(resp) {
-                    console.log('response from POST /comment', resp);
-                    // that.comment = resp.data;
+                    console.log('response from POST /comment', resp.data);
+                    that.comments.unshift(resp.data[0]);
                 }).catch(function(err) {
                      console.log('error in POST /comment', err);
                 })
@@ -51,8 +52,6 @@
         //adding here all from mounted
         //     }
         // }
-
-
 
 
 
