@@ -34,7 +34,7 @@
 
 <!-------------------------------------------------->
 
-<display-img  v-if="showModal" :id="id"></display-img>
+<display-img  v-if="showModal" :id="id" @quit="quiting"></display-img>
 
 <!-------------------------------------------------->
 
@@ -44,6 +44,7 @@
 <!-------------------------------------------------->
 <script type="text/x-template" id="display-template">
 <div class="modal-box">
+    <h1 @click='closeModal'>X</h1>
     <h2>{{title}}</h2>
     <img :src="url" class='photo'>
     <p>{{description}}</p>

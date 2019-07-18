@@ -74,6 +74,9 @@
                         this.id = obj.id;
                     }
                 });
+            },
+            quiting: function() {
+                this.showModal = false;
             }
             //---------------
         } //closes methods

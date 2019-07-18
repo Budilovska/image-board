@@ -77,3 +77,13 @@ h5 {
     margin-top: 5px;
     overflow: scroll;
 }
+
+.modal-box h2 {
+    margin: 0;
+}
+
+
+.modal-box h1 {
+    cursor: pointer;
+    font-size: 24px;
+}

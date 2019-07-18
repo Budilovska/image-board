@@ -54,12 +54,17 @@
                     .catch(function(err) {
                         console.log("error in POST /comment", err);
                     });
-            }
-        }
-        // watch: {
-        //     id: function() {
-        //adding here all from mounted
-        //     }
-        // }
+            },
+            closeModal: function() {
+                console.log("Clicked close modal");
+                this.$emit("quit");
+            } //closes closeModal
+        } //closes Methods
     }); //end of vue component
 })(); //end of efii
+
+// watch: {
+//     id: function() {
+//adding here all from mounted
+//     }
+// }
