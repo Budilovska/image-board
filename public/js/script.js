@@ -76,12 +76,6 @@ new Vue({
                 if (e.path[0].currentSrc == obj.url) {
                 // console.log(obj.id);
                  this.id = obj.id;
-                // console.log("THIS.ID", this.id);
-                // axios.get('/comment').then(function(resp) {
-                //     console.log("RESP", resp);
-                // }).catch(function(err) {
-                //         console.log('err in GET /comment', err);
-                // });
                 }
             })
         }

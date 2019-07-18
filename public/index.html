@@ -48,10 +48,31 @@
     <img :src="url" class='photo'>
     <p>{{description}}</p>
     <h5>uploaded by {{username}} on {{date}}</h5>
+    <div class="submit-comment">
+        <h3>Add a comment</h3>
+        <input v-model = 'comment' name="comment" placeholder="comment" type="text">
+        <input v-model = 'author' name="author" placeholder="name" type="text">
+        <button @click='clickedSubmitCom'>submit</button>
+    </div>
+    <div class="all-comments" v-if='comments.length > 0'>
+        <div class="one-comment" v-for='comment in comments'>
+            <h4>{{comment.comment}}</h4>
+            <p>{{comment.author}} on {{comment.created_at}}</p>
+
+        </div>
+    </div>
 </div>
+
 </script>
 <!-------------------------------------------------->
 
+<!-- conditionals: -->
+    <!-- <ul v-if='cities.length > 0'> -->
+        <!-- city reperesents each object in the array, like i in a loop -->
+        <!-- <li v-for='city in cities'>{{city.name}}, {{city.country}}</li>
+    </ul> -->
+<!-- <p v-else>no cities!!!</p> -->
+<!-- </div> -->
 
 </section>
     <script src="/js/vue.js"></script>

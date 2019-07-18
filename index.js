@@ -1,8 +1,11 @@
 const express = require("express");
 const app = express();
 const db = require("./utils/db");
+const bodyParser = require("body-parser");
 
 app.use(express.static("./public"));
+
+app.use(bodyParser.json());
 
 //------------------------has to be above your routes, handles file uploads
 var multer = require('multer');
@@ -63,17 +66,34 @@ var uploader = multer({
 
 });
 
+
 app.get('/comment/:id', function(req, res) {
-    // console.log(req.params);
     db.getImageById(req.params.id).then(results => {
-        console.log("RESULTS:", results.rows);
-        res.json(results.rows);
-    }).catch(err => {
-        console.log("error", err);
+        console.log("RESULTS:", results);
+        const imagesInfo = results.rows;
+        // res.json(results.rows);
+         db.getAllComments(req.params.id).then(comments => {
+            console.log("COMMENTS", comments, imagesInfo);
+            res.json([imagesInfo, comments.rows]);
+                }).catch(err => {
+                    console.log("error", err);
+                });
     });
 });
 
-
+app.post('/comment/:id', function(req, res) {
+        db.addComment(req.params.id, req.body.author, req.body.comment).then(() => {
+            console.log("New comment is added!!!");
+        }).catch(err => {
+            console.log("error", err);
+    });
+    // db.getAllComments(req.params.id).then(comments => {
+    //    console.log("COMMENTS", comments);
+    //    res.json(comments.rows);
+    //        }).catch(err => {
+    //            console.log("error", err);
+    //        });
+});
 
 
 //------------------------------
