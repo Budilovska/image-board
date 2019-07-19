@@ -15,7 +15,7 @@
         },
         props: ["id"],
         mounted: function() {
-            console.log("mounted!!!");
+            console.log("mounted!!!", this);
             console.log("this.comments", this.comments);
 
             var that = this;
@@ -56,7 +56,6 @@
                     });
             },
             closeModal: function() {
-                console.log("Clicked close modal");
                 this.$emit("quit");
             } //closes closeModal
         } //closes Methods

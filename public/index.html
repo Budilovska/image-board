@@ -26,15 +26,17 @@
 
 
 <div class="cards">
-        <div class="image-cell" v-for='image in images' @click="clicked">
-            <img :src=image.url class='photo'>
-            <p class='title'> {{image.title}}</p>
+        <div class="image-cell" v-for='image in images'>
+            <a :href="'#' + image.id">
+                <img :src=image.url class='photo' :id=image.id>
+                <p class='title'> {{image.title}}</p>
+            </a>
         </div>
 </div>
 
 <!-------------------------------------------------->
 
-<display-img  v-if="showModal" :id="id" @quit="quiting"></display-img>
+<display-img  v-if="showModal" :id="id.slice(1)" @quit="closeModal"></display-img>
 
 <!-------------------------------------------------->
 
@@ -77,6 +79,9 @@
 
 </section>
     <script src="/js/vue.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+ integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+ crossorigin="anonymous"></script>
     <script src="/js/axios.min.js"></script>
     <script src="/js/display-img.js"></script>
     <script src="/js/script.js"></script>
