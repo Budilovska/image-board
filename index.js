@@ -47,7 +47,16 @@ app.get("/images", function(req, res) {
         });
 });
 
-//------------------------------------------------------
+//-------------------LOAD MORE IMAGES --------------------
+app.get("/more/:lastId", function(req, res) {
+    console.log("req.params", req.params.lastId);
+    db.getMoreImages(req.params.lastId).then(results => {
+        console.log("db.query next 9:", results.rows);
+        res.json(results.rows);
+    });
+});
+
+//--------------------------------------------------------
 //single indicates that we are only expecting one file. The string passed to single is the name of the field in the request.
 
 app.post("/upload", uploader.single("file"), s3.upload, (req, res) => {
@@ -61,7 +70,7 @@ app.post("/upload", uploader.single("file"), s3.upload, (req, res) => {
         req.body.description
     )
         .then(result => {
-            console.log("RETURN:", result);
+            // console.log("RETURN:", result);
             res.json(result.rows[0]);
         })
         .catch(err => {
@@ -75,12 +84,12 @@ app.post("/upload", uploader.single("file"), s3.upload, (req, res) => {
 
 app.get("/comment/:id", function(req, res) {
     db.getImageById(req.params.id).then(results => {
-        console.log("RESULTS:", results);
+        // console.log("RESULTS:", results);
         const imagesInfo = results.rows;
         // res.json(results.rows);
         db.getAllComments(req.params.id)
             .then(comments => {
-                console.log("COMMENTS", comments);
+                // console.log("COMMENTS", comments);
                 res.json([imagesInfo, comments.rows]);
             })
             .catch(err => {
@@ -92,8 +101,8 @@ app.get("/comment/:id", function(req, res) {
 app.post("/comment/:id", function(req, res) {
     db.addComment(req.params.id, req.body.author, req.body.comment)
         .then(comments => {
-            console.log("New comment is added!!!");
-            console.log("LAST:", comments);
+            // console.log("New comment is added!!!");
+            // console.log("LAST:", comments);
             res.json(comments.rows);
         })
         .catch(err => {

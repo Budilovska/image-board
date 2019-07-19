@@ -91,3 +91,11 @@ h5 {
     cursor: pointer;
     font-size: 24px;
 }
+
+#more-btn {
+    width: 200px;
+    height: 40px;
+    background-color: red;
+    margin: auto;
+
+}

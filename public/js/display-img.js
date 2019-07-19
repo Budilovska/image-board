@@ -15,21 +15,24 @@
         },
         props: ["id"],
         mounted: function() {
-            console.log("mounted!!!", this);
-            console.log("this.comments", this.comments);
+            // console.log("mounted!!!", this);
+            // console.log("this.comments", this.comments);
 
             var that = this;
             axios
                 .get("/comment/" + that.id)
                 .then(function(resp) {
-                    console.log("RESP:", resp);
-                    that.url = resp.data[0][0].url;
-                    that.title = resp.data[0][0].title;
-                    that.description = resp.data[0][0].description;
-                    that.username = resp.data[0][0].username;
-                    that.date = resp.data[0][0].created_at;
-                    that.comments = resp.data[1];
-                    console.log("that.comments", that.comments);
+                    if (resp.data[0].length == 0) {
+                        that.$emit("quit");
+                    } else {
+                        that.url = resp.data[0][0].url;
+                        that.title = resp.data[0][0].title;
+                        that.description = resp.data[0][0].description;
+                        that.username = resp.data[0][0].username;
+                        that.date = resp.data[0][0].created_at;
+                        that.comments = resp.data[1];
+                        console.log("that.comments", that.comments);
+                    }
                 })
                 .catch(function(err) {
                     console.log("err in GET /comment", err);
@@ -48,7 +51,7 @@
                         author: this.author
                     })
                     .then(function(resp) {
-                        console.log("response from POST /comment", resp.data);
+                        // console.log("response from POST /comment", resp.data);
                         that.comments.unshift(resp.data[0]);
                     })
                     .catch(function(err) {

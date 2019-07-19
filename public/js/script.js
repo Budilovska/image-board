@@ -15,6 +15,7 @@
             id: location.hash
         }, //closes data
         mounted: function() {
+            history.replaceState(null, null, "/");
             console.log("this", this); //properties of data are added to "this"
             var self = this;
 
@@ -56,7 +57,7 @@
                 axios
                     .post("/upload", formData)
                     .then(function(resp) {
-                        console.log("response from POST /upload", resp);
+                        console.log("response from POST /upload", resp.data);
                         self.images.unshift(resp.data);
                     })
                     .catch(function(err) {
@@ -75,13 +76,32 @@
                 // console.log("target", e.target.id);
                 this.id = e.target.id;
             },
+
             closeModal: function() {
                 this.id = null;
-                location.hash = "";
                 history.replaceState(null, null, "/");
                 this.showModal = false;
-                console.log("this.showModal", this.showModal);
-            }
+            },
+
+            clickedMoreButton: function(e) {
+                e.preventDefault();
+                var that = this;
+                let lastId = this.images[this.images.length - 1].id;
+                console.log(lastId);
+
+                axios
+                    .get("/more/" + lastId)
+                    .then(function(resp) {
+                        console.log("RESP from axios.images:", resp.data);
+                        resp.data.forEach(image => {
+                            console.log(image);
+                            that.images.push(image);
+                        });
+                    })
+                    .catch(function(err) {
+                        console.log("err in GET /images+lastID", err);
+                    }); //closes axios req
+            } //clickedMoreButton
         } //closes methods
     }); //closes new vue
 })();
