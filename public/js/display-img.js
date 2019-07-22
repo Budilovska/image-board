@@ -66,7 +66,35 @@
             closeModal: function() {
                 this.$emit("quit");
             } //closes closeModal
-        } //closes Methods
+        }, //closes Methods
+        watch: {
+        id: function() {
+
+            // console.log("mounted!!!", this);
+            // console.log("this.comments", this.comments);
+            var that = this;
+            axios
+                .get("/comment/" + that.id)
+                .then(function(resp) {
+                    if (resp.data[0].length == 0) {
+                        that.$emit("quit");
+                    } else {
+                        console.log(resp.data);
+                        that.url = resp.data[0][0].url;
+                        that.title = resp.data[0][0].title;
+                        that.description = resp.data[0][0].description;
+                        that.username = resp.data[0][0].username;
+                        that.date = resp.data[0][0].created_at;
+                        that.comments = resp.data[1];
+                        that.prevImgId = resp.data[2][0].prev;
+                        that.nextImgId = resp.data[2][0].next;
+                    }
+                })
+                .catch(function(err) {
+                    console.log("err in GET /comment", err);
+                }); //closes /comment get
+            } //closes mounted
+        }
     }); //end of vue component
 })(); //end of efii
 
