@@ -100,7 +100,7 @@
                         resp.data.forEach(image => {
                             that.images.push(image);
                             // console.log(that.moreImagesExist);
-                            // console.log("RESP", resp.data);
+                            console.log("RESP", resp.data);
                             if (resp.data.length < 9 || !resp.data.length) {
                                 // console.log("RESP", resp.data);
                                 that.moreImagesExist = false;

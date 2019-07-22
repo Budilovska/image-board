@@ -143,6 +143,23 @@ p {
     align-items: center; */
 }
 
+#prev {
+    font-size: 16px;
+    font-family: 'Montserrat', sans-serif;
+    color: black;
+    font-size: 24px;
+    font-weight: bold;
+    margin-left: 550px;
+}
+
+#next {
+    font-size: 24px;
+    font-weight: bold;
+    font-family: 'Montserrat', sans-serif;
+    color: black;
+    margin-left: 280px;
+}
+
 .modal-box-content {
     width: 100%;
     height: 80%;

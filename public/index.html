@@ -53,8 +53,8 @@
 <div class="modal-box">
     <div class="modal-box-content">
     <h1 @click='closeModal'>X</h1>
-    <!-- <a v-if="nextImgId != null" v-bind:href="'#' + nextImgId">Next</a>
-    <a v-if="prevImgId != null" v-bind:href="'#' + prevImgId">Prev</a> -->
+    <a id="prev" v-if="prevImgId != null" v-bind:href="'#' + prevImgId">Prev</a>
+    <a id="next" v-if="nextImgId != null" v-bind:href="'#' + nextImgId">Next</a>
     <h2>{{title}}</h2>
     <img :src="url" class='photo'>
     <p>{{description}}</p>
