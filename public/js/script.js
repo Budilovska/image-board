@@ -4,6 +4,7 @@
         data: {
             images: [],
             showModal: false,
+            moreImagesExist: true,
             title: "",
 
             description: "",
@@ -12,7 +13,7 @@
 
             file: null,
 
-            id: location.hash
+            id: location.hash.slice(1)
         }, //closes data
         mounted: function() {
             history.replaceState(null, null, "/");
@@ -30,20 +31,19 @@
                 }); //closes axios req
 
             $(window).on("hashchange", function() {
-                self.id = window.location.hash;
-                // self.id = location.hash.slice(1);
+                self.id = location.hash.slice(1);
+                console.log("hashchanged", self.id);
                 if (self.id) {
                     self.showModal = true;
                 }
             });
-        }, //closes mounted - don't forget a coma!!!!
+        }, //closes mounted
 
         methods: {
             //----------------------------
 
             handleClick: function(e) {
                 e.preventDefault();
-                // console.log('this', this)  //properties of data are added to "this"
 
                 // FormData API is necessary for sending FILES:
                 var formData = new FormData();
@@ -59,6 +59,9 @@
                     .then(function(resp) {
                         console.log("response from POST /upload", resp.data);
                         self.images.unshift(resp.data);
+                        self.title = "";
+                        self.description = "";
+                        self.username = "";
                     })
                     .catch(function(err) {
                         console.log("error in POST /upload", err);
@@ -84,18 +87,24 @@
             },
 
             clickedMoreButton: function(e) {
+                console.log("clicked more btn");
                 e.preventDefault();
                 var that = this;
                 let lastId = this.images[this.images.length - 1].id;
-                console.log(lastId);
+                // console.log(lastId);
 
                 axios
                     .get("/more/" + lastId)
                     .then(function(resp) {
-                        console.log("RESP from axios.images:", resp.data);
+                        // console.log("RESP More Images:", resp.data.length);
                         resp.data.forEach(image => {
-                            console.log(image);
                             that.images.push(image);
+                            // console.log(that.moreImagesExist);
+                            // console.log("RESP", resp.data);
+                            if (resp.data.length < 9 || !resp.data.length) {
+                                // console.log("RESP", resp.data);
+                                that.moreImagesExist = false;
+                            } //hiding more btn if no more img
                         });
                     })
                     .catch(function(err) {

@@ -49,9 +49,8 @@ app.get("/images", function(req, res) {
 
 //-------------------LOAD MORE IMAGES --------------------
 app.get("/more/:lastId", function(req, res) {
-    console.log("req.params", req.params.lastId);
+    // console.log("req.params", req.params.lastId);
     db.getMoreImages(req.params.lastId).then(results => {
-        console.log("db.query next 9:", results.rows);
         res.json(results.rows);
     });
 });
@@ -84,17 +83,16 @@ app.post("/upload", uploader.single("file"), s3.upload, (req, res) => {
 
 app.get("/comment/:id", function(req, res) {
     db.getImageById(req.params.id).then(results => {
-        // console.log("RESULTS:", results);
         const imagesInfo = results.rows;
-        // res.json(results.rows);
-        db.getAllComments(req.params.id)
-            .then(comments => {
-                // console.log("COMMENTS", comments);
-                res.json([imagesInfo, comments.rows]);
-            })
-            .catch(err => {
-                console.log("error", err);
-            });
+        db.getAllComments(req.params.id).then(comments => {
+            db.getPrevAndNextId(req.params.id)
+                .then(prevAndNextId => {
+                    res.json([imagesInfo, comments.rows, prevAndNextId]);
+                })
+                .catch(err => {
+                    console.log("error", err);
+                });
+        });
     });
 });
 
@@ -109,6 +107,17 @@ app.post("/comment/:id", function(req, res) {
             console.log("error", err);
         });
 });
+
+// app.get("/next/:id", function(req, res) {
+//     db.getNextImg(req.params.id)
+//         .then(next => {
+//             console.log("NEXT", next.rows);
+//             res.json(next.rows);
+//         })
+//         .catch(err => {
+//             console.log("error in get /next", err);
+//         });
+// });
 
 //------------------------------
 app.listen(8080, () => console.log("Listening!"));

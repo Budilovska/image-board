@@ -39,3 +39,12 @@ exports.getMoreImages = function(lastId) {
         [lastId]
     );
 };
+
+exports.getPrevAndNextId = function(id) {
+    return db
+        .query(
+            "SELECT (SELECT id FROM images WHERE id < $1 ORDER BY id DESC LIMIT 1) AS prev, (SELECT id FROM images WHERE id > $1 ORDER BY id ASC LIMIT 1) as next",
+            [id]
+        )
+        .then(({ rows }) => rows);
+};
