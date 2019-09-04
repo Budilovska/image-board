@@ -13,6 +13,7 @@
 
 <div class="main">
 
+<div class="form-container">
     <form>
         <input class="main-page-inp" v-model = 'title' name="title" placeholder="title" type="text">
         <input class="main-page-inp" v-model = 'description' name="description" placeholder="description" type="text">
@@ -21,8 +22,10 @@
         <button id="submit-img-btn" @click='handleClick'>submit</button>
      <!-- <button @click.prevent.default='handleClick'>submit</button>   -->
     </form>
+</div>
 
 <!-- <div class="cards-container"> -->
+<div class="cards-container">
 <div class="cards">
         <div class="image-cell" v-for='image in images'>
             <a :href="'#' + image.id">
@@ -32,10 +35,12 @@
             </a>
         </div>
 </div>
+</div>
 <!-- </div> -->
 
-
+<div class="more-btn-container">
 <button id="more-btn" v-if="moreImagesExist" @click='clickedMoreButton'>More</button>
+</div>
 
 
 <!-------------------------------------------------->

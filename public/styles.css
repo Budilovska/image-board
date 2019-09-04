@@ -1,5 +1,6 @@
 * {
      box-sizing: border-box;
+     outline: 0;
      }
 
 body {
@@ -9,25 +10,20 @@ body {
     height: 100vh;
     width: 100vw;
     display: grid;
-    grid-template-columns: 1fr;
     grid-template-rows: 70px 100px 1fr 40px;
 }
 
 header {
-    /* border:  5px solid yellow; */
-    /* grid-column: 1 / 4; */
-    /* font-size: 20px; */
     display: flex;
     justify-content: center;
-    grid-column: 1 / 2;
     grid-row: 1 / 2;
 }
 
-form {
-grid-column: 1 / 2;
-grid-row: 2 / 3;
- justify-content: center;
- margin-left: 200px;
+.form-container {
+    grid-row: 2 / 3;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 }
 
 .main-page-inp {
@@ -73,22 +69,18 @@ h1 {
     font-size: 40px;
     font-family: 'Playfair Display', serif;
     margin: 15px;
-/* font-family: 'Montserrat', sans-serif; */
 }
 
-/* .cards-container {
+.cards-container {
     grid-row: 3 / 4;
-    grid-template-columns: 300px 300px 300px 300px;
-} */
-
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
 .cards {
-    grid-row: 3 / 4;
-    /* grid-column: 2 / 4; */
-    width: 100%;
     display: grid;
     grid-template-columns: repeat(3, 280px);
     grid-template-rows: 1fr 1fr;
-    margin-left: 290px;
     margin-top: 30px;
 }
 
@@ -100,8 +92,9 @@ image-cell {
 
 img {
     grid-row: 1 / 2;
-    width: 260px;
-    height: 360px;
+    width: 16rem;
+    height: 16rem;
+    object-fit: cover;
 }
 
 .image-description {
@@ -313,8 +306,14 @@ ul {
     grid-column: 1 / 2;
 }
 
-#more-btn {
+.more-btn-container {
     grid-row: 4 / 5;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+#more-btn {
     font-family: 'Montserrat', sans-serif;
     font-weight: 400;
     font-size: 14px;
@@ -324,7 +323,6 @@ ul {
     border-radius: 20px;
     padding: 5px 15px;
     cursor: pointer;
-    margin-left: 670px;
 }
 
 
@@ -332,8 +330,7 @@ ul {
 
     .cards {
         display: grid;
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(1, 16rem);
         grid-template-rows: 1fr 1fr;
-        align-self: center;
-        margin-left: 30px;
-}
+        margin-top: 30px;
+    }
