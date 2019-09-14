@@ -20,4 +20,18 @@ The Good Food - is an Instagram-inspired single-page application, that allows us
 
 ## Preview: 
 
-to be added soon
+Image upload
+
+<img src="image_upload.gif">
+
+Image gallery
+
+<img src="board.gif">
+
+Read images description, navigate to previous and next image
+
+<img src="prev.gif">
+
+Add comments
+
+<img src="comment.gif">

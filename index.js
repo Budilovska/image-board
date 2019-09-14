@@ -7,7 +7,10 @@ app.use(express.static("./public"));
 
 app.use(bodyParser.json());
 
-//------------------------has to be above your routes, handles file uploads
+const moment = require('moment');
+moment.locale('en');
+
+//------------------------has to be above routes, handles file uploads
 var multer = require("multer");
 var uidSafe = require("uid-safe");
 var path = require("path");
@@ -76,8 +79,6 @@ app.post("/upload", uploader.single("file"), s3.upload, (req, res) => {
             console.log("error", err);
         });
 
-    // you're making db query to insert the image
-    // If nothing went wrong the file is already in the uploads directory
 });
 //-------------------------- GET, POST: /comment/:id ----------------
 
@@ -85,6 +86,13 @@ app.get("/comment/:id", function(req, res) {
     db.getImageById(req.params.id).then(results => {
         const imagesInfo = results.rows;
         db.getAllComments(req.params.id).then(comments => {
+            imagesInfo[0].created_at = moment(imagesInfo[0].created_at,
+                moment.ISO_8601
+            ).format("DD MMM YYYY, h:mma");
+            comments.rows.forEach(time => time.created_at = moment(time.created_at,
+                moment.ISO_8601
+            ).fromNow()
+            );
             db.getPrevAndNextId(req.params.id)
                 .then(prevAndNextId => {
                     res.json([imagesInfo, comments.rows, prevAndNextId]);
@@ -107,17 +115,6 @@ app.post("/comment/:id", function(req, res) {
             console.log("error", err);
         });
 });
-
-// app.get("/next/:id", function(req, res) {
-//     db.getNextImg(req.params.id)
-//         .then(next => {
-//             console.log("NEXT", next.rows);
-//             res.json(next.rows);
-//         })
-//         .catch(err => {
-//             console.log("error in get /next", err);
-//         });
-// });
 
 //------------------------------
 app.listen(8080, () => console.log("Listening!"));

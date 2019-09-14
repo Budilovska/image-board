@@ -96,28 +96,3 @@
         }
     }); //end of vue component
 })(); //end of efii
-
-// watch: {
-//     id: function() {
-//adding here all from mounted
-//     }
-// }
-
-// console.log("this", this.nextImgId);
-// var that = this;
-// axios
-//     .get("/next/" + that.id)
-//     .then(function(resp) {
-//         that.nextImgId = resp.data[0].id;
-//         console.log(that.nextImgId);
-//         that.url = resp.data[0].url;
-//         that.title = resp.data[0].title;
-//         that.description = resp.data[0].description;
-//         that.username = resp.data[0].username;
-//         that.date = resp.data[0].created_at;
-//         // that.comments = resp.data[1];
-//         console.log("resp from axios.next", resp.data[0]);
-//     })
-//     .catch(function(err) {
-//         console.log("err in GET /comment", err);
-//     }); //closes /comment get

@@ -10,7 +10,8 @@ body {
     height: 100vh;
     width: 100vw;
     display: grid;
-    grid-template-rows: 70px 100px 1fr 40px;
+    grid-template-rows: 70px 60px 50px 1fr 40px;
+    background-color: black;
 }
 
 header {
@@ -24,24 +25,69 @@ header {
     display: flex;
     flex-direction: row;
     justify-content: center;
+    height: 40px;
 }
 
 .main-page-inp {
-    -webkit-appearance: none;
-   outline: none;
-   border-top: 0px;
+    appearance: none;
+    outline: none;
+    border-top: 0px;
     border-left: 0px;
-     border-right: 0px;
-   border-bottom: 1px solid black;
-   outline-width: 0;
-   background: transparent;
-   font-family: 'Montserrat', sans-serif;
+    border-right: 0px;
+    border-bottom: 1px solid gray;
+    outline-width: 0;
+    background: transparent;
+    font-family: 'Montserrat', sans-serif;
     font-weight: 300;
     font-size: 16px;
+    color: gray;
+}
+
+.main-page-inp::placeholder {
+  color: gray;
+  letter-spacing: 0.1;
+}
+
+.camera-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+#camera {
+    width: 75px;
+    height: 75px;
+    margin: auto;
+    cursor: pointer;
+}
+
+#camera:hover {
+    animation: shake 0.82s cubic-bezier(.36,.07,.19,.7) both;
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+}
+
+@keyframes shake {
+  10%, 90% {
+    transform: translate3d(-1px, 0, 0);
+  }
+
+  20%, 80% {
+    transform: translate3d(2px, 0, 0);
+  }
+
+  30%, 50%, 70% {
+    transform: translate3d(-4px, 0, 0);
+  }
+
+  40%, 60% {
+    transform: translate3d(4px, 0, 0);
+  }
 }
 
 .custom-file-upload {
-    -webkit-user-select: none;
+    user-select: none;
     font-family: 'Montserrat', sans-serif;
     font-weight: 400;
     font-size: 14px;
@@ -58,17 +104,20 @@ header {
     font-weight: 400;
     font-size: 14px;
     background: none;
-    color: black;
-    border: 1px solid black;
+    color: gray;
+    border: 1px solid gray;
     border-radius: 20px;
     padding: 5px 15px;
     cursor: pointer;
 }
 
 h1 {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 300;
+    opacity: 0.5;
     font-size: 40px;
-    font-family: 'Playfair Display', serif;
     margin: 15px;
+    color: white;
 }
 
 .cards-container {
@@ -76,52 +125,61 @@ h1 {
     display: flex;
     flex-direction: row;
     justify-content: center;
+    margin-top: 3rem;
+    margin-bottom: 3rem;
 }
+
 .cards {
     display: grid;
-    grid-template-columns: repeat(3, 280px);
+    grid-template-columns: repeat(3, 22rem);
     grid-template-rows: 1fr 1fr;
-    margin-top: 30px;
+    grid-gap: 1rem;
 }
 
-image-cell {
-    display: grid;
-    grid-template-rows: 300px 20px;
+.image-cell {
     position: relative;
+    display: grid;
+    grid-template-rows: 16rem 6rem;
 }
 
-img {
-    grid-row: 1 / 2;
-    width: 16rem;
-    height: 16rem;
+.photo {
+    grid-row: 1 / 3;
+    width: 22rem;
+    height: 22rem;
     object-fit: cover;
 }
 
-.image-description {
+.big-photo {
+    height: 99%;
+    max-width: 96%;
+    object-fit: cover;
+    margin-top: 0.2rem;
+    margin-left: 0.2rem;
+}
+
+.title {
+    color: white;
     grid-row: 1 / 2;
-    font-size: 14px;
+    font-size: 7rem;
     font-family: 'Montserrat', sans-serif;
-    width: 250px;
-    color: pink;
-    display: none;
+    position: absolute;
+    top: 0.3rem;
+    letter-spacing: 0.2;
+    opacity: 0;
+    width: 20rem;
+    z-index: 5;
+    margin: 0;
+    transition: opacity 0.5s linear;
 }
 
-
-
-img:hover {
-    /* visibility: hidden; */
+.image-cell:hover .title {
+    opacity: 1;
+    transition: opacity 0.5s linear;
 }
 
-p {
-    grid-row: 2 / 3;
-    font-size: 16px;
-    font-family: 'Montserrat', sans-serif;
-    color: black;
-    margin-top: 0px;
-    margin-bottom: 10px;
+.image-cell:hover .photo {
+    filter: brightness(20%);
 }
-
-
 
 .modal-box {
     width: 100%;
@@ -129,28 +187,13 @@ p {
     position: fixed;
     left: 0;
     top: 0;
-    background-color: rgba(0,0,0,.4);
+    background-color: rgba(0,0,0,.8);
+    z-index: 10;
+}
 
-    /* display: flex;
+.prev-container {
+    display: flex;
     flex-direction: column;
-    align-items: center; */
-}
-
-#prev {
-    font-size: 16px;
-    font-family: 'Montserrat', sans-serif;
-    color: black;
-    font-size: 24px;
-    font-weight: bold;
-    margin-left: 550px;
-}
-
-#next {
-    font-size: 24px;
-    font-weight: bold;
-    font-family: 'Montserrat', sans-serif;
-    color: black;
-    margin-left: 280px;
 }
 
 .modal-box-content {
@@ -158,59 +201,86 @@ p {
     height: 80%;
     background-color: white;
     margin-top: 80px;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 1fr;
-     grid-gap: 20px;
-
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    position: relative;
 }
 
-.modal-box-content img {
-    grid-row: 1 / 2;
-    grid-column: 3 / 4;
-    margin-left: 150px;
+.buttons {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    top: -12%;
+    left: 2%;
+    opacity: 0.5;
+    transition: opacity 0.5s linear;
+    line-height: 1;
 }
 
 
-.modal-box-content p {
-    grid-row: 1 / 2;
-    grid-column: 3 / 4;
-    align-self: end;
-    margin-bottom: 50px;
+
+#close-btn {
+    font-family: 'Montserrat', sans-serif;
+    color: white;
+    font-size: 5.5rem;
+    font-weight: bold;
+    cursor: pointer;
+    margin: 0;
 }
 
-.submit-comment {
-    margin-top: 150px;
-    grid-row: 1 / 2;
-    grid-column: 1 / 2;
+#prev {
+    font-family: 'Montserrat', sans-serif;
+    color: white;
+    font-size: 5.5rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#next {
+    font-size: 5.5rem;
+    font-weight: bold;
+    font-family: 'Montserrat', sans-serif;
+    color: white;
+    cursor: pointer;
+}
+
+.image-container {
+    width: 33%;
+}
+
+.image-container:hover .buttons {
+    opacity: 1;
+    transition: opacity 0.5s linear;
+}
+
+.descriptions {
+    width: 30%;
 }
 
 a {
     text-decoration: none;
 }
 
-h2 {
-    grid-row: 1 / 2;
-    grid-column: 2 / 3;
-    font-size: 34px;
-    font-family: 'Playfair Display', serif;
-    margin-top: 20px;
-}
-
-h3 {
-    grid-row: 1 / 2;
-    grid-column: 1 / 2;
+.modal-title {
     font-size: 20px;
     font-family: 'Montserrat', sans-serif;
 }
 
-h5 {
-    grid-row: 1 / 2;
-    grid-column: 3 / 4;
+h3 {
+    font-size: 20px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.uploaded {
     font-family: 'Montserrat', sans-serif;
     font-size: 14px;
     align-self: end;
-    margin-bottom: 180px;
+}
+
+.modal-description {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
 }
 
 h6 {
@@ -219,91 +289,75 @@ h6 {
     margin: 5px;
 }
 
-
-ul {
-    list-style: none;
-}
-
 #comment-inp {
-    -webkit-appearance: none;
-   outline: none;
-   border-top: 0px;
-    border-left: 0px;
-     border-right: 0px;
-   border-bottom: 1px solid black;
-   outline-width: 0;
-   background: transparent;
-   font-family: 'Montserrat', sans-serif;
+    width: 96%;
+    background-color: rgb(0, 0, 0, 0.1);
+    margin-top: 2px;
+    appearance: none;
+    outline: none;
+    border: none;
+    outline-width: 0;
+    font-family: 'Montserrat', sans-serif;
     font-weight: 300;
     font-size: 12px;
-    height: 40px;
-    width: 300px;
+    min-height: 3rem;
 }
 
-#author-name-inp {
-    -webkit-appearance: none;
-   outline: none;
-   border-top: 0px;
-    border-left: 0px;
-     border-right: 0px;
-   border-bottom: 1px solid black;
-   outline-width: 0;
-   background: transparent;
-   font-family: 'Montserrat', sans-serif;
-    font-weight: 300;
-    font-size: 14px;
-    width: 300px;
+#comment-inp::placeholder {
+    color: black;
 }
 
 #submit-comment-btn {
     font-family: 'Montserrat', sans-serif;
     font-weight: 400;
-    font-size: 14px;
+    font-size: 18px;
     background: none;
     color: black;
-    border: 1px solid black;
-    border-radius: 20px;
-    padding: 5px 15px;
     cursor: pointer;
+    border: none;
+    outline: none;
+    margin-top: 10px;
+    width: 5rem;
+}
+
+.submit-comment {
+    display: flex;
+    flex-direction: column;
+}
+
+.comment-section {
+    position: relative;
+    width: 25%;
 }
 
 .one-comment {
-    width: 300px;
-    height: 50px;
-    background-color: white;
-    border-bottom: 1px solid black;
+    width: 96%;
+    background-color: rgb(0, 0, 0, 0.1);
+    margin-top: 2px;
 }
 
 .one-comment h4 {
     font-family: 'Montserrat', sans-serif;
     font-weight: 400;
     font-size: 14px;
-    padding: 0;
-    margin-top: 5px;
-    margin-bottom: 5px;
+    padding: 10px 5px;
+    padding-top: 10px;
+    margin: 0;
 }
 
 .one-comment p {
     font-family: 'Montserrat', sans-serif;
     font-weight: 400;
     font-size: 10px;
-    margin-top: 3px;
+    padding: 0px 5px;
+    padding-bottom: 10px;
+    margin: 0;
 }
 
 .all-comments {
-    margin-top: 120px;
-    margin-bottom: 50px;
     overflow: scroll;
-    grid-row: 1 / 2;
-    grid-column: 2 / 3;
-}
-
-
-.modal-box h1 {
-    cursor: pointer;
-    font-size: 24px;
-    grid-row: 1 / 2;
-    grid-column: 1 / 2;
+    margin-top: 3rem;
+    height: 55%;
 }
 
 .more-btn-container {
@@ -318,19 +372,52 @@ ul {
     font-weight: 400;
     font-size: 14px;
     background: none;
-    color: black;
-    border: 1px solid black;
+    color: gray;
+    border: 1px solid gray;
     border-radius: 20px;
     padding: 5px 15px;
     cursor: pointer;
+    margin-bottom: 1rem;
+}
+
+.inputfile {
+	width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
 }
 
 
 @media screen and (min-width: 360px) and (max-width: 720px) {
 
-    .cards {
+    body {
+        margin: 0;
+        height: 100vh;
+        width: 100vw;
         display: grid;
-        grid-template-columns: repeat(1, 16rem);
+        grid-template-rows: 70px 60px 50px 1fr 40px;
+        background-color: black;
+    }
+
+    .cards {
+        width: 90%;
+        display: grid;
+        grid-template-columns: repeat(1, 7rem);
         grid-template-rows: 1fr 1fr;
         margin-top: 30px;
+    }
+
+    .image-cell {
+        position: relative;
+        display: grid;
+        grid-template-rows: 32rem 3rem;
+    }
+
+    .photo {
+        grid-row: 1 / 3;
+        width: 35rem;
+        height: 35rem;
+        object-fit: cover;
     }

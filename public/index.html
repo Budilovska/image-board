@@ -4,6 +4,8 @@
     <title>Image Board</title>
     <link rel="stylesheet" href="/styles.css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400|Playfair+Display&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Oswald:300,400&display=swap" rel="stylesheet">
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
 </head>
 <body>
 
@@ -12,13 +14,15 @@
     </header>
 
 <div class="main">
-
+    <div class="camera-container">
+    <label id="filelabel" ref="filelabel" for="file"><img src="camera1.png" id="camera"></label>
+    </div>
 <div class="form-container">
     <form>
         <input class="main-page-inp" v-model = 'title' name="title" placeholder="title" type="text">
         <input class="main-page-inp" v-model = 'description' name="description" placeholder="description" type="text">
         <input class="main-page-inp" v-model = 'username' name="username" placeholder="username" type="text">
-        <input class="main-page-inp" name="file" type="file" accept="image/*" @change='handleChange'>
+        <input id="file" class="inputfile" name="file" ref="filechooser" type="file" accept="image/*" @change='handleChange'>
         <button id="submit-img-btn" @click='handleClick'>submit</button>
      <!-- <button @click.prevent.default='handleClick'>submit</button>   -->
     </form>
@@ -30,8 +34,7 @@
         <div class="image-cell" v-for='image in images'>
             <a :href="'#' + image.id">
                 <img :src=image.url class='photo' :id=image.id>
-                <p class='title'> {{image.title}}</p>
-                <p class='image-description'>{{image.description}}</p>
+                <p class='title'>{{image.title}}</p>
             </a>
         </div>
 </div>
@@ -57,30 +60,35 @@
 <script type="text/x-template" id="display-template">
 <div class="modal-box">
     <div class="modal-box-content">
-    <h1 @click='closeModal'>X</h1>
-    <a id="prev" v-if="prevImgId != null" v-bind:href="'#' + prevImgId">Prev</a>
-    <a id="next" v-if="nextImgId != null" v-bind:href="'#' + nextImgId">Next</a>
-    <h2>{{title}}</h2>
-    <img :src="url" class='photo'>
-    <p>{{description}}</p>
-    <h5>uploaded by {{username}} on {{date}}</h5>
+        <div class="image-container">
+            <img :src="url" class='big-photo'>
+            <div class="buttons">
+                <p id="close-btn" @click='closeModal'>close</p>
+                <a id="prev" v-if="prevImgId != null" v-bind:href="'#' + prevImgId">prev</a>
+                <a id="next" v-if="nextImgId != null" v-bind:href="'#' + nextImgId">next</a>
+            </div>
+        </div>
+    <div class="descriptions">
+        <h2 class="modal-title">{{title}}</h2>
+        <p class="modal-description">{{description}}</p>
+        <h5 class="uploaded">uploaded by {{username}} on {{date}}</h5>
+    </div>
 
-
+<div class="comment-section">
     <div class="submit-comment">
-        <ul>
-        <li><h3>Add a comment</h3></li>
-        <li><input id="comment-inp" v-model = 'comment' name="comment" placeholder="comment" type="text"></li>
-        <li><input id="author-name-inp" v-model = 'author' name="author" placeholder="name" type="text"></li>
-        <li><button id="submit-comment-btn" @click='clickedSubmitCom'>submit</button></li>
-    </ul>
+        <h3>Add a comment</h3>
+        <input id="comment-inp" v-model = 'comment' name="comment" placeholder="comment" type="text">
+        <input id="comment-inp" v-model = 'author' name="author" placeholder="name" type="text">
+    <button id="submit-comment-btn" @click='clickedSubmitCom'>Submit</button>
     </div>
     <div class="all-comments" v-if='comments.length > 0'>
         <div class="one-comment" v-for='comment in comments'>
-            <h4>{{comment.comment}}</h4>
-            <p>{{comment.author}} on {{comment.created_at}}</p>
+            <h4>{{comment.author}}: {{comment.comment}}</h4>
+            <p>{{comment.created_at}}</p>
 
         </div>
     </div>
+</div>
 </div>
 </div>
 
@@ -98,22 +106,3 @@
 
 </body>
 </html>
-
-
-
-
-
-
-<!-- <div class="main"> -->
-    <!-- elements inside of .main will have access to vue -->
-    <!-- <h1>Welcome, {{ name }}</h1> -->
-    <!-- <p>{{ 2 + 2 }}</p> -->
-    <!-- <p>{{ userInfo.favoriteFood }}</p> -->
-
-<!-- conditionals: -->
-    <!-- <ul v-if='cities.length > 0'> -->
-        <!-- city reperesents each object in the array, like i in a loop -->
-        <!-- <li v-for='city in cities'>{{city.name}}, {{city.country}}</li>
-    </ul> -->
-<!-- <p v-else>no cities!!!</p> -->
-<!-- </div> -->
