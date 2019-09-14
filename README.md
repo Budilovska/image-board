@@ -10,7 +10,6 @@ The Good Food - is an Instagram-inspired single-page application, that allows us
 - Node.js and Express
 - AWS S3
 - SQL and Postgres
-- Node.js and Express
 
 ## Features: 
 
